@@ -1,11 +1,15 @@
 const express = require('express');
 const blogsRouter = require('./routes/blogs');
+const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Blogs route
+// Routes
 app.use('/blogs', blogsRouter);
+app.use('/register', registerRouter);
+app.use('/login', loginRouter);
 
 // Not found (catch-all route)
 app.use('*', (req, res) => {
