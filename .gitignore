@@ -1,0 +1,6 @@
+api/node_modules
+api/.env
+readers-front-end/node_modules
+readers-front-end/.env
+editors-front-end/node_modules
+editors-front-end/api/.env
