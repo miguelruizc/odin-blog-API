@@ -1,74 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const c = require('../controllers/blogs');
+const { authorizeJWT } = require('../misc/jwt');
 
-// Get all blogs
-router.get('/', (req, res) => {
-	res.json({
-		message: 'All blogs',
-	});
-});
+router.get('/', c.GET_all_blogs);
+router.get('/:blogId', c.GET_one_blog);
+router.get('/:blogId/comments', c.GET_all_comments);
+router.get('/:blogId/comments/:commentId', c.GET_one_comment);
 
-// Get one blog
-router.get('/:blogId', (req, res) => {
-	res.json({
-		message: `One blog(${req.params.blogId})`,
-	});
-});
+router.post('/', authorizeJWT, c.POST_create_blog);
+router.post('/:blogId/comments', c.POST_create_comment);
 
-// Get all comments of a blog
-router.get('/:blogId/comments', (req, res) => {
-	res.json({
-		message: `All comment of blog(${req.params.blogId})`,
-	});
-});
+router.put('/:blogId', authorizeJWT, c.PUT_edit_blog);
+router.put('/:blogId/comments/:commentId', authorizeJWT, c.PUT_edit_comment);
 
-// Get one comment of a blog
-router.get('/:blogId/comments/:commentId', (req, res) => {
-	res.json({
-		message: `One comment(${req.params.commentId}) of blog(${req.params.blogId})`,
-	});
-});
-
-// Create new blog
-router.post('/', (req, res) => {
-	res.json({
-		message: 'Blog created',
-	});
-});
-
-// Create new comment
-router.post('/:blogId/comments', (req, res) => {
-	res.json({
-		message: `Comment created on blog(${req.params.blogId})`,
-	});
-});
-
-// Edit blog
-router.put('/:blogId', (req, res) => {
-	res.json({
-		message: `Blog(${req.params.blogId}) edited`,
-	});
-});
-
-// Edit comment
-router.put('/:blogId/comments/:commentId', (req, res) => {
-	res.json({
-		message: `Comment(${req.params.commentId}) from Blog(${req.params.blogId}) edited`,
-	});
-});
-
-// Delete blog
-router.delete('/:blogId', (req, res) => {
-	res.json({
-		message: `Blog(${req.params.blogId}) deleted`,
-	});
-});
-
-// Delete comment
-router.delete('/:blogId/comments/:commentId', (req, res) => {
-	res.json({
-		message: `Comment(${req.params.commentId}) from Blog(${req.params.blogId}) deleted`,
-	});
-});
+router.delete('/:blogId', authorizeJWT, c.DELETE_blog);
+router.delete('/:blogId/comments/:commentId', authorizeJWT, c.DELETE_comment);
 
 module.exports = router;
