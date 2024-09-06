@@ -40,6 +40,6 @@ model User {
   id       Int     @id @default(autoincrement())
   username String  @unique
   password String
-  author   Boolean @default(false)
+  isAuthor Boolean @default(false)
   blogs    Blog[]
 }
