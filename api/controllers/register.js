@@ -28,7 +28,7 @@ const POST_register = async (req, res, next) => {
 			data: {
 				username,
 				password,
-				author: false,
+				isAuthor: false,
 			},
 		});
 		console.log('User registered:\n-', user.username);

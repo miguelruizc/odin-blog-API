@@ -5,7 +5,7 @@ const generateJWT = (user) => {
 		{
 			id: user.id,
 			username: user.username,
-			isAuthor: user.author,
+			isAuthor: user.isAuthor,
 		},
 		process.env.JWT_SECRET_KEY,
 		{
