@@ -19,4 +19,25 @@ const credentialsSanitization = () => {
 	return rules;
 };
 
-module.exports = { credentialsSanitization };
+const blogSanitization = () => {
+	const rules = [
+		body('title')
+			.notEmpty()
+			.withMessage('Blog title must be provided')
+			.bail()
+			.escape()
+			.isLength({ min: 3, max: 50 })
+			.withMessage('Blog title must be between 3 and 50 characters long'),
+		body('body')
+			.notEmpty()
+			.withMessage('Blog body must be provided')
+			.bail()
+			.escape()
+			.isLength({ min: 15 })
+			.withMessage('Blog body must be at least 15 characters long'),
+	];
+
+	return rules;
+};
+
+module.exports = { credentialsSanitization, blogSanitization };

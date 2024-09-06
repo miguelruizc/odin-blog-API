@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const GET_all_blogs = (req, res) => {
 	res.json({
 		message: 'All blogs',
@@ -19,6 +20,16 @@ const GET_one_comment = (req, res) => {
 	});
 };
 const POST_create_blog = (req, res) => {
+	// Check for validation/sanitization errors
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json({
+			errors: errors.array().map((error) => error.msg),
+		});
+	}
+
+	// Add post to database
+	// Respond with blog add info
 	res.json({
 		message: 'Blog created',
 	});
@@ -29,6 +40,14 @@ const POST_create_comment = (req, res) => {
 	});
 };
 const PUT_edit_blog = (req, res) => {
+	// Check for validation/sanitization errors
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json({
+			errors: errors.array().map((error) => error.msg),
+		});
+	}
+
 	res.json({
 		message: `Blog(${req.params.blogId}) edited`,
 	});
