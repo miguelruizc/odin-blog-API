@@ -1,4 +1,7 @@
 const { validationResult } = require('express-validator');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 const GET_all_blogs = (req, res) => {
 	res.json({
 		message: 'All blogs',
@@ -19,7 +22,7 @@ const GET_one_comment = (req, res) => {
 		message: `One comment(${req.params.commentId}) of blog(${req.params.blogId})`,
 	});
 };
-const POST_create_blog = (req, res) => {
+const POST_create_blog = async (req, res) => {
 	// Check for validation/sanitization errors
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -29,10 +32,37 @@ const POST_create_blog = (req, res) => {
 	}
 
 	// Add post to database
-	// Respond with blog add info
-	res.json({
-		message: 'Blog created',
-	});
+	try {
+		const post = await prisma.blog.create({
+			data: {
+				title: req.body.title,
+				body: req.body.body,
+				userId: req.user.id,
+			},
+			include: {
+				author: true,
+			},
+		});
+		console.log(
+			'Blog created:\n-title: ',
+			post.title,
+			'\n-body: ',
+			post.body,
+			'\n-author: ',
+			post.author.username
+		);
+
+		// Respond with blog info
+		res.json({
+			message: 'Blog created',
+			title: post.title,
+			body: post.body,
+			author: post.author.username,
+		});
+	} catch (error) {
+		console.error('Error handling request /POST blogs: ', error);
+		return next(error);
+	}
 };
 const POST_create_comment = (req, res) => {
 	res.json({
