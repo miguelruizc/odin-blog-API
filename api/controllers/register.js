@@ -31,14 +31,14 @@ const POST_register = async (req, res, next) => {
 				author: false,
 			},
 		});
-		console.log('User registered:\n', '-username: ', user.username);
+		console.log('User registered:\n-', user.username);
 
 		// Create JWT token
 		const token = generateJWT(user);
 
 		// Respond with JWT attached
 		return res.json({
-			message: `User ${username} registered`,
+			message: `User registered: ${username}`,
 			JWT: token,
 		});
 	} catch (error) {
