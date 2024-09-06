@@ -5,3 +5,4 @@ readers-front-end/.env
 editors-front-end/node_modules
 editors-front-end/api/.env
 todo.md
+curl-commands.txt

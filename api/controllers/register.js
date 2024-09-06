@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator');
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
+const { generateJWT } = require('../misc/jwt');
+
 const prisma = new PrismaClient();
 
 const POST_register = async (req, res, next) => {
@@ -29,20 +31,18 @@ const POST_register = async (req, res, next) => {
 				author: false,
 			},
 		});
-		console.log(
-			'User registered:\n',
-			'-username: ',
-			user.username,
-			'\n',
-			'-password: ',
-			user.password
-		);
+		console.log('User registered:\n', '-username: ', user.username);
 
+		// Create JWT token
+		const token = generateJWT(user);
+
+		// Respond with JWT attached
 		return res.json({
 			message: `User ${username} registered`,
+			JWT: token,
 		});
 	} catch (error) {
-		console.log('Error handling POST /register request: ', error);
+		console.error('Error handling POST /register request: ', error);
 		return next(error);
 	}
 };
