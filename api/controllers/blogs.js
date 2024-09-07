@@ -205,8 +205,6 @@ const PUT_edit_blog = async (req, res, next) => {
 		if (!blog) return res.status(404).json({ error: 'Blog not found' });
 
 		// Check if user is blog.author
-		console.log('req.user: ', req.user);
-		console.log('blog.userId: ', blog.userId);
 		if (req.user.id !== blog.userId)
 			return res.status(403).json({
 				error: "Can't update blog, blog doesn't belong to current user",
@@ -232,16 +230,69 @@ const PUT_edit_blog = async (req, res, next) => {
 		);
 
 		// Return updated blog
-		return res.json({ blog: updatedBlog });
+		return res.json({ message: 'Blog updated', blog: updatedBlog });
 	} catch (error) {
 		console.error(`Error handling request PUT /blog/${blogId}: `, error);
 		return next(error);
 	}
 };
-const PUT_edit_comment = (req, res, next) => {
-	res.json({
-		message: `Comment(${req.params.commentId}) from Blog(${req.params.blogId}) edited`,
-	});
+const PUT_edit_comment = async (req, res, next) => {
+	// Check if :blogId is valid
+	const blogId = parseInt(req.params.blogId);
+	if (isNaN(blogId)) {
+		return res.status(400).json({ error: 'Invalid blog id' });
+	}
+	// Check if :commentId is valid
+	const commentId = parseInt(req.params.commentId);
+	if (isNaN(commentId)) {
+		return res.status(400).json({ error: 'Invalid comment id' });
+	}
+
+	// Check for validation/sanitization errors
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json({
+			errors: errors.array().map((error) => error.msg),
+		});
+	}
+
+	try {
+		// Check if blog exists
+		const blog = await prisma.blog.findUnique({ where: { id: blogId } });
+		if (!blog) return res.status(404).json({ error: 'Blog not found' });
+
+		// Check if comment exists
+		const comment = await prisma.comment.findUnique({
+			where: { id: commentId },
+		});
+		if (!comment) return res.status(404).json({ error: 'Comment not found' });
+
+		// Check if user is comment.author
+		if (req.user.username !== comment.author)
+			return res.status(403).json({
+				error: "Can't update comment, comment doesn't belong to current user",
+			});
+
+		// Modify comment in database
+		const updatedComment = await prisma.comment.update({
+			where: { id: commentId },
+			data: {
+				body: req.body.body,
+			},
+		});
+		console.log(
+			'Comment updated:\n-Old body:',
+			comment.body,
+			'\n-New body:',
+			updatedComment.body
+		);
+
+		// Return updated blog
+		return res.json({ message: 'Comment updated', comment: updatedComment });
+	} catch (error) {
+		console.error(`Error handling request PUT /blog/${blogId}: `, error);
+		return next(error);
+	}
 };
 const DELETE_blog = (req, res, next) => {
 	res.json({
