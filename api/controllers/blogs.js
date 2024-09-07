@@ -110,7 +110,7 @@ const POST_create_blog = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'Blog created:\n-title:',
+			'*---\nBlog created:\n-title:',
 			post.title,
 			'\n-body:',
 			post.body,
@@ -161,7 +161,7 @@ const POST_create_comment = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'Comment created:\n-blogId:',
+			'*---\nComment created:\n-blogId:',
 			blogId,
 			'\n-body:',
 			comment.body,
@@ -219,7 +219,7 @@ const PUT_edit_blog = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'Blog updated:\n-Old title:',
+			'*---\nBlog updated:\n-Old title:',
 			blog.title,
 			'\n-Old body:',
 			blog.body,
@@ -281,7 +281,7 @@ const PUT_edit_comment = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'Comment updated:\n-Old body:',
+			'*---\nComment updated:\n-Old body:',
 			comment.body,
 			'\n-New body:',
 			updatedComment.body
@@ -324,7 +324,12 @@ const DELETE_blog = async (req, res, next) => {
 			where: { id: blogId },
 		});
 
-		console.log('Blog deleted:\n-title:', blog.title, '\n-body:', blog.body);
+		console.log(
+			'*---\nBlog deleted:\n-title:',
+			blog.title,
+			'\n-body:',
+			blog.body
+		);
 
 		// Return deleted blog
 		return res.json({ message: 'Blog deleted', blog: deletedBlog });
@@ -367,7 +372,7 @@ const DELETE_comment = async (req, res, next) => {
 			where: { id: commentId },
 		});
 		console.log(
-			`Comment deleted (from blogID:${blogId}):\n`,
+			`*---\nComment deleted (from blogID:${blogId}):\n`,
 			'-body:',
 			deletedComment.body
 		);
