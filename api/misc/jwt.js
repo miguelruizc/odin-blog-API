@@ -16,7 +16,6 @@ const generateJWT = (user) => {
 
 const authorizeJWT = (req, res, next) => {
 	// Extract JWT from Authorization header
-	// -format: (Authorization: Bearer <token>)
 	const token = req.header('Authorization')?.split(' ')[1];
 
 	// No token - Access denied: Not authenticated
@@ -37,4 +36,19 @@ const authorizeJWT = (req, res, next) => {
 	});
 };
 
-module.exports = { generateJWT, authorizeJWT };
+const softAuthenticateJWT = (req, res, next) => {
+	// Extract JWT from Authorization header
+	const token = req.header('Authorization')?.split(' ')[1];
+
+	if (token) {
+		jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+			// If valid token: Save user info
+			req.user = user;
+			next();
+		});
+	} else {
+		next();
+	}
+};
+
+module.exports = { generateJWT, authorizeJWT, softAuthenticateJWT };

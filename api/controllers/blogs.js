@@ -44,11 +44,11 @@ const POST_create_blog = async (req, res) => {
 			},
 		});
 		console.log(
-			'Blog created:\n-title: ',
+			'Blog created:\n-title:',
 			post.title,
-			'\n-body: ',
+			'\n-body:',
 			post.body,
-			'\n-author: ',
+			'\n-author:',
 			post.author.username
 		);
 
@@ -64,10 +64,59 @@ const POST_create_blog = async (req, res) => {
 		return next(error);
 	}
 };
-const POST_create_comment = (req, res) => {
-	res.json({
-		message: `Comment created on blog(${req.params.blogId})`,
-	});
+const POST_create_comment = async (req, res, next) => {
+	// Check if :blogId is valid
+	const blogId = parseInt(req.params.blogId);
+	if (isNaN(blogId)) {
+		return res.status(400).json({ error: 'Invalid blog id' });
+	}
+
+	try {
+		// Check if blog exists
+		const blog = await prisma.blog.findUnique({ where: { id: blogId } });
+		if (!blog) {
+			return res.status(404).json({ error: 'Blog not found' });
+		}
+
+		// Check for validation/sanitization errors
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({
+				errors: errors.array().map((error) => error.msg),
+			});
+		}
+
+		// Add comment to database, anonymous if no user, authored if yes user
+		const comment = await prisma.comment.create({
+			data: {
+				body: req.body.body,
+				author: req.user?.username || 'Anonymous',
+				blogId,
+			},
+		});
+		console.log(
+			'Comment created:\n-blogId:',
+			blogId,
+			'\n-body:',
+			comment.body,
+			'\n-author:',
+			comment.author
+		);
+
+		// Respond with comment info
+		return res.json({
+			message: 'Comment created',
+			blogId,
+			body: comment.body,
+			author: comment.author,
+		});
+	} catch (error) {
+		console.error(
+			'Error handling POST /blog/:blogId/comment request (create blog): ',
+			error
+		);
+		return next(error);
+	}
 };
 const PUT_edit_blog = (req, res) => {
 	// Check for validation/sanitization errors

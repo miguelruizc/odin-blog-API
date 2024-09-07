@@ -40,4 +40,22 @@ const blogSanitization = () => {
 	return rules;
 };
 
-module.exports = { credentialsSanitization, blogSanitization };
+const commentSanitization = () => {
+	const rules = [
+		body('body')
+			.notEmpty()
+			.withMessage('Comment body must be provided')
+			.bail()
+			.escape()
+			.isLength({ min: 3, max: 150 })
+			.withMessage('Comment body must be between 3 and 150 characters long'),
+	];
+
+	return rules;
+};
+
+module.exports = {
+	credentialsSanitization,
+	blogSanitization,
+	commentSanitization,
+};
