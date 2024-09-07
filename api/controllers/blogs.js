@@ -19,10 +19,25 @@ const GET_one_blog = (req, res) => {
 		message: `One blog(${req.params.blogId})`,
 	});
 };
-const GET_all_comments = (req, res) => {
-	res.json({
-		message: `All comment of blog(${req.params.blogId})`,
-	});
+const GET_all_comments = async (req, res) => {
+	// Check if :blogId is valid
+	const blogId = parseInt(req.params.blogId);
+	if (isNaN(blogId)) {
+		return res.status(400).json({ error: 'Invalid blog id' });
+	}
+
+	try {
+		// Query comments from database
+		const comments = await prisma.comment.findMany({ where: { blogId } });
+		// Return them
+		res.json(comments);
+	} catch (error) {
+		console.error(
+			`Error handling request (GET /blogs/${blogId}/comments): `,
+			error
+		);
+		next(error);
+	}
 };
 const GET_one_comment = (req, res) => {
 	res.json({
