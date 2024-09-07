@@ -297,10 +297,41 @@ const PUT_edit_comment = async (req, res, next) => {
 		return next(error);
 	}
 };
-const DELETE_blog = (req, res, next) => {
-	res.json({
-		message: `Blog(${req.params.blogId}) deleted`,
-	});
+const DELETE_blog = async (req, res, next) => {
+	// Check if :blogId is valid
+	const blogId = parseInt(req.params.blogId);
+	if (isNaN(blogId)) {
+		return res.status(400).json({ error: 'Invalid blog id' });
+	}
+
+	try {
+		// Check if blog exists
+		const blog = await prisma.blog.findUnique({ where: { id: blogId } });
+		if (!blog) return res.status(404).json({ error: 'Blog not found' });
+
+		// Check if user is blog.author
+		if (req.user.id !== blog.userId)
+			return res.status(403).json({
+				error: "Can't delete blog, blog doesn't belong to current user",
+			});
+
+		// Delete comments associated in database
+		await prisma.comment.deleteMany({
+			where: { blogId: blogId },
+		});
+		// Delete blog in database
+		const deletedBlog = await prisma.blog.delete({
+			where: { id: blogId },
+		});
+
+		console.log('Blog deleted:\n-title:', blog.title, '\n-body:', blog.body);
+
+		// Return deleted blog
+		return res.json({ message: 'Blog deleted', blog: deletedBlog });
+	} catch (error) {
+		console.error(`Error handling request DELETE /blog/${blogId}: `, error);
+		return next(error);
+	}
 };
 const DELETE_comment = async (req, res, next) => {
 	// Check if :blogId is valid
