@@ -2,10 +2,17 @@ const { validationResult } = require('express-validator');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const GET_all_blogs = (req, res) => {
-	res.json({
-		message: 'All blogs',
-	});
+const GET_all_blogs = async (req, res, next) => {
+	try {
+		// Query all blogs from database
+		const blogs = await prisma.blog.findMany();
+
+		// Return them
+		res.json(blogs);
+	} catch (error) {
+		console.error('Error handling request (GET /blogs): ', error);
+		next(error);
+	}
 };
 const GET_one_blog = (req, res) => {
 	res.json({
