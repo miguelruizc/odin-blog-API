@@ -287,10 +287,13 @@ const PUT_edit_comment = async (req, res, next) => {
 			updatedComment.body
 		);
 
-		// Return updated blog
+		// Return updated comment
 		return res.json({ message: 'Comment updated', comment: updatedComment });
 	} catch (error) {
-		console.error(`Error handling request PUT /blog/${blogId}: `, error);
+		console.error(
+			`Error handling request PUT /blog/${blogId}/comments/${commentId}: `,
+			error
+		);
 		return next(error);
 	}
 };
@@ -299,10 +302,54 @@ const DELETE_blog = (req, res, next) => {
 		message: `Blog(${req.params.blogId}) deleted`,
 	});
 };
-const DELETE_comment = (req, res, next) => {
-	res.json({
-		message: `Comment(${req.params.commentId}) from Blog(${req.params.blogId}) deleted`,
-	});
+const DELETE_comment = async (req, res, next) => {
+	// Check if :blogId is valid
+	const blogId = parseInt(req.params.blogId);
+	if (isNaN(blogId)) {
+		return res.status(400).json({ error: 'Invalid blog id' });
+	}
+	// Check if :commentId is valid
+	const commentId = parseInt(req.params.commentId);
+	if (isNaN(commentId)) {
+		return res.status(400).json({ error: 'Invalid comment id' });
+	}
+
+	try {
+		// Check if blog exists
+		const blog = await prisma.blog.findUnique({ where: { id: blogId } });
+		if (!blog) return res.status(404).json({ error: 'Blog not found' });
+
+		// Check if comment exists
+		const comment = await prisma.comment.findUnique({
+			where: { id: commentId },
+		});
+		if (!comment) return res.status(404).json({ error: 'Comment not found' });
+
+		// Check if user is comment.author
+		if (req.user.username !== comment.author)
+			return res.status(403).json({
+				error: "Can't delete comment, comment doesn't belong to current user",
+			});
+
+		// Delete comment from database
+		const deletedComment = await prisma.comment.delete({
+			where: { id: commentId },
+		});
+		console.log(
+			`Comment deleted (from blogID:${blogId}):\n`,
+			'-body:',
+			deletedComment.body
+		);
+
+		// Return deleted comment
+		return res.json({ message: 'Comment deleted', comment: deletedComment });
+	} catch (error) {
+		console.error(
+			`Error handling request DELETE /blog/${blogId}/comments/${commentId} `,
+			error
+		);
+		return next(error);
+	}
 };
 
 module.exports = {
