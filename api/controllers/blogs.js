@@ -14,10 +14,27 @@ const GET_all_blogs = async (req, res, next) => {
 		next(error);
 	}
 };
-const GET_one_blog = (req, res) => {
-	res.json({
-		message: `One blog(${req.params.blogId})`,
-	});
+const GET_one_blog = async (req, res) => {
+	// Check if :blogId is valid
+	const blogId = parseInt(req.params.blogId);
+	if (isNaN(blogId)) {
+		return res.status(400).json({ error: 'Invalid blog id' });
+	}
+
+	try {
+		// Search blog in database
+		const blog = await prisma.blog.findUnique({ where: { id: blogId } });
+		// Not Found
+		if (!blog) return res.status(404).json({ error: 'Blog not found' });
+
+		// Found
+		return res.json({
+			blog,
+		});
+	} catch (error) {
+		console.error('Error handling GET /blogs/${blogId} request: ', error);
+		return next(error);
+	}
 };
 const GET_all_comments = async (req, res) => {
 	// Check if :blogId is valid
