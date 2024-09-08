@@ -22,15 +22,22 @@ function Login() {
 
 			// Response NOT OK
 			if (!response.ok) {
-				throw new Error(response.statusText);
+				const jsonResponse = await response.json();
+				console.log('Response not OK: ');
+				console.log(jsonResponse);
+				return;
 			}
 
 			// Response OK
-			const result = await response.json();
-			alert(result);
+			const jsonResponse = await response.json();
+			console.log('Response OK: ');
+			console.log(jsonResponse);
+
+			// Extract JWT and store locally
+			// ---
+			// Redirect to the wakawaka
 		} catch (error) {
-			// Handle error messages
-			alert(error.message);
+			console.error('Error sending form data: ', error);
 		}
 	};
 
