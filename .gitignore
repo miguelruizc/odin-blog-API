@@ -5,6 +5,7 @@ readers-frontend/.env
 editors-frontend/node_modules
 editors-frontend/api/.env
 todo.md
+editors-frontend/todo.md
 curl-commands.txt
 
 # Logs
