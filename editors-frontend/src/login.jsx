@@ -1,7 +1,16 @@
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 function Login() {
+	const navigate = useNavigate();
+
 	// Submit form function
 	const submitForm = async (event) => {
 		event.preventDefault();
+
+		// Get errors div
+		const errorsDiv = document.querySelector('.login .errors');
+		errorsDiv.innerHTML = '';
 
 		// Send form data to API
 		const formData = new FormData(event.target);
@@ -23,19 +32,22 @@ function Login() {
 			// Response NOT OK
 			if (!response.ok) {
 				const jsonResponse = await response.json();
-				console.log('Response not OK: ');
-				console.log(jsonResponse);
+				const errors = jsonResponse.errors || [jsonResponse.error];
+
+				errors.forEach((error) => (errorsDiv.innerHTML += `<p>·${error}</p>`));
+				event.target.reset();
 				return;
 			}
 
 			// Response OK
 			const jsonResponse = await response.json();
-			console.log('Response OK: ');
-			console.log(jsonResponse);
 
-			// Extract JWT and store locally
-			// ---
-			// Redirect to the wakawaka
+			// Extract JWT + username and store locally
+			localStorage.setItem('jwt', jsonResponse.JWT);
+			localStorage.setItem('username', username);
+
+			// Redirect to /home
+			navigate('/');
 		} catch (error) {
 			console.error('Error sending form data: ', error);
 		}
@@ -50,9 +62,9 @@ function Login() {
 					<input
 						type="text"
 						name="username"
-						// pattern="^[a-zA-Z0-9]+$"
-						// title="Special characters and spaces are not allowed"
-						// required
+						pattern="^[a-zA-Z0-9]+$"
+						title="Special characters and spaces are not allowed"
+						required
 					/>
 				</div>
 				<div>
@@ -60,14 +72,17 @@ function Login() {
 					<input
 						type="password"
 						name="password"
-						// pattern="^[a-zA-Z0-9]+$"
-						// title="Special characters and spaces are not allowed"
-						// required
+						pattern="^[a-zA-Z0-9]+$"
+						title="Special characters and spaces are not allowed"
+						required
 					/>
 				</div>
 				<button type="submit">Log In</button>
 				<div className="errors"></div>
 			</form>
+			<p>
+				Don&apos;t have an account?<Link to="/register">Register</Link>
+			</p>
 		</div>
 	);
 }

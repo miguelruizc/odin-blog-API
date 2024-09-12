@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
@@ -79,6 +80,9 @@ function Register() {
 				<button type="submit">Register</button>
 				<div className="errors"></div>
 			</form>
+			<p>
+				Have an account?<Link to="/login">Log In</Link>
+			</p>
 		</div>
 	);
 }
