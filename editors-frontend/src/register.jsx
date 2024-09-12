@@ -45,7 +45,7 @@ function Register() {
 			localStorage.setItem('jwt', jsonResponse.JWT);
 			localStorage.setItem('username', username);
 
-			// Redirect to /
+			// Redirect to /home
 			navigate('/');
 		} catch (error) {
 			console.error('Error sending form data: ', error);
