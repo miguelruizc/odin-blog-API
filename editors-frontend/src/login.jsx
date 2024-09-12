@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login({ setIsAuthenticated }) {
 	const navigate = useNavigate();
 
 	// Submit form function
@@ -45,6 +45,7 @@ function Login() {
 			// Extract JWT + username and store locally
 			localStorage.setItem('jwt', jsonResponse.JWT);
 			localStorage.setItem('username', username);
+			setIsAuthenticated(true);
 
 			// Redirect to /home
 			navigate('/');
