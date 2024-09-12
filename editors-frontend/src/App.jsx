@@ -16,7 +16,7 @@ function App() {
 
 	return (
 		<BrowserRouter>
-			<Nav isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+			<Nav isAuthenticated={isAuthenticated} />
 			<Routes>
 				<Route path="/" element={<MyBlogs />} />
 				<Route path="/new-blog" element={<NewBlog />} />

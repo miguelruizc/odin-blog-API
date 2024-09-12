@@ -1,5 +1,11 @@
+import { Navigate } from 'react-router-dom';
+
 function MyBlogs() {
-	return <h1>My Blogs</h1>;
+	// User not authenticated
+	if (!localStorage.getItem('jwt')) return <Navigate to="/login" />;
+
+	// JSX elements
+	return <div className="main blogs">List blogs</div>;
 }
 
 export default MyBlogs;

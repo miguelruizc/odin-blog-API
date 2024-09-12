@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function Nav({ isAuthenticated, setIsAuthenticated }) {
+function Nav({ isAuthenticated }) {
 	if (isAuthenticated) {
 		return (
 			<nav>
@@ -11,9 +11,6 @@ function Nav({ isAuthenticated, setIsAuthenticated }) {
 					</li>
 					<li>
 						<Link to="/new-blog">New Blog</Link>
-					</li>
-					<li>
-						<Link to="/edit-blog">Edit Blog</Link>
 					</li>
 					<li>
 						<Link to="/logout">Log Out</Link>
