@@ -20,7 +20,9 @@ function App() {
 			<Routes>
 				<Route path="/" element={<MyBlogs />} />
 				<Route path="/new-blog" element={<NewBlog />} />
-				<Route path="/edit-blog" element={<EditBlog />} />
+				<Route path="/edit-blog" element={<EditBlog />}>
+					<Route path=":blogId" />
+				</Route>
 				<Route
 					path="/register"
 					element={<Register setIsAuthenticated={setIsAuthenticated} />}

@@ -41,8 +41,6 @@ function MyBlogs() {
 	// Delete blog handler
 	const handleDelete = (blogId, event) => {
 		event.preventDefault();
-		console.log('JWT: ', localStorage.getItem('jwt'));
-		console.log('blogId: ', blogId);
 		fetch(`https://blogapi.miguelruizc.xyz/blogs/${blogId}`, {
 			method: 'DELETE',
 			headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` },
@@ -71,7 +69,7 @@ function MyBlogs() {
 					<p>{blog.body}</p>
 					<p>Author: {blog.author.username}</p>
 					<p>{formatDate(blog.createdAt)}</p>
-					<Link to={`/edit/${blog.id}`}>Edit</Link>
+					<Link to={`/edit-blog/${blog.id}`}>Edit</Link>
 					<a href="" onClick={() => handleDelete(blog.id, event)}>
 						Delete
 					</a>
