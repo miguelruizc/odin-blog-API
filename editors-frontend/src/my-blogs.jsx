@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { formatDate } from '../misc/formatDate';
+import { Link } from 'react-router-dom';
 
 function MyBlogs() {
 	const [blogs, setBlogs] = useState(null);
@@ -8,7 +9,7 @@ function MyBlogs() {
 	const [error, setError] = useState(null);
 
 	// Fetch data on mount
-	useEffect(() => {
+	const fetchBlogs = () => {
 		// Fetch data and populate blogs/error/loading
 		fetch('https://blogapi.miguelruizc.xyz/blogs')
 			.then((response) => {
@@ -28,10 +29,36 @@ function MyBlogs() {
 				setError(error.message);
 				setLoading(false);
 			});
+	};
+
+	useEffect(() => {
+		fetchBlogs();
 	}, []);
 
 	// User not authenticated
 	if (!localStorage.getItem('jwt')) return <Navigate to="/login" />;
+
+	// Delete blog handler
+	const handleDelete = (blogId, event) => {
+		event.preventDefault();
+		console.log('JWT: ', localStorage.getItem('jwt'));
+		console.log('blogId: ', blogId);
+		fetch(`https://blogapi.miguelruizc.xyz/blogs/${blogId}`, {
+			method: 'DELETE',
+			headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` },
+		})
+			.then((response) => {
+				if (!response.ok) {
+					alert('Something went wrong, response not OK');
+				}
+				// Item deleted, force rerender
+				fetchBlogs();
+			})
+			.catch((error) => {
+				console.error(error.message);
+				alert(`Something went wrong: ${error.message}`);
+			});
+	};
 
 	// Create blog cards
 	let blogCards;
@@ -44,8 +71,10 @@ function MyBlogs() {
 					<p>{blog.body}</p>
 					<p>Author: {blog.author.username}</p>
 					<p>{formatDate(blog.createdAt)}</p>
-					<button>Edit</button>
-					<button>Delete</button>
+					<Link to={`/edit/${blog.id}`}>Edit</Link>
+					<a href="" onClick={() => handleDelete(blog.id, event)}>
+						Delete
+					</a>
 				</div>
 			);
 		});
