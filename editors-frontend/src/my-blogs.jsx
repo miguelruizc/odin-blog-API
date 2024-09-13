@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { formatDate } from '../misc/formatDate';
 
 function MyBlogs() {
 	const [blogs, setBlogs] = useState(null);
@@ -41,8 +42,10 @@ function MyBlogs() {
 				<div className="blogCard" key={blog.id}>
 					<h3>{blog.title}</h3>
 					<p>{blog.body}</p>
-					<p>{blog.author}</p>
-					<p>{blog.createdAt}</p>
+					<p>Author: {blog.author.username}</p>
+					<p>{formatDate(blog.createdAt)}</p>
+					<button>Edit</button>
+					<button>Delete</button>
 				</div>
 			);
 		});
@@ -54,7 +57,7 @@ function MyBlogs() {
 			<h2>My Blogs</h2>
 			{loading && <p>Loading...</p>}
 			{error && <p>Error: {error}</p>}
-			{blogs && <p>{blogCards}</p>}
+			{blogs && blogCards}
 		</div>
 	);
 }

@@ -18,3 +18,14 @@ nav ul {
 .errors {
 	color: red;
 }
+
+.main {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.blogCard {
+	background-color: rgb(255, 255, 255);
+	border: 1px solid black;
+}
