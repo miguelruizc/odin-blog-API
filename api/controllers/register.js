@@ -18,7 +18,7 @@ const POST_register = async (req, res, next) => {
 		// Check if user already exists
 		const username = req.body.username;
 		const password = await bcrypt.hash(req.body.password, 10);
-		const isAuthor = req.body.isAuthor || false;
+		const isAuthor = Boolean(req.body.isAuthor) || false;
 
 		const userExists = await prisma.user.findUnique({ where: { username } });
 		if (userExists) {
@@ -33,7 +33,7 @@ const POST_register = async (req, res, next) => {
 				isAuthor,
 			},
 		});
-		console.log('*---\nUser registered:\n-', user.username, `\nisAuthor: ${isAuthor}`);
+		console.log('*---\nUser registered:\n-', user.username, `\n- isAuthor: ${isAuthor}`);
 
 		// Create JWT token
 		const token = generateJWT(user);
