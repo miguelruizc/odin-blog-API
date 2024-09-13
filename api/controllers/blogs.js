@@ -5,7 +5,15 @@ const prisma = new PrismaClient();
 const GET_all_blogs = async (req, res, next) => {
 	try {
 		// Query all blogs from database
-		const blogs = await prisma.blog.findMany();
+		const blogs = await prisma.blog.findMany({
+			include: {
+				author: {
+					select: {
+						username: true,
+					},
+				},
+			},
+		});
 
 		// Return them
 		res.json(blogs);
@@ -23,7 +31,16 @@ const GET_one_blog = async (req, res, next) => {
 
 	try {
 		// Search blog in database
-		const blog = await prisma.blog.findUnique({ where: { id: blogId } });
+		const blog = await prisma.blog.findUnique({
+			where: { id: blogId },
+			include: {
+				author: {
+					select: {
+						username: true,
+					},
+				},
+			},
+		});
 		// Not Found
 		if (!blog) return res.status(404).json({ error: 'Blog not found' });
 
@@ -49,10 +66,7 @@ const GET_all_comments = async (req, res, next) => {
 		// Return them
 		res.json(comments);
 	} catch (error) {
-		console.error(
-			`Error handling request (GET /blogs/${blogId}/comments): `,
-			error
-		);
+		console.error(`Error handling request (GET /blogs/${blogId}/comments): `, error);
 		next(error);
 	}
 };
@@ -324,12 +338,7 @@ const DELETE_blog = async (req, res, next) => {
 			where: { id: blogId },
 		});
 
-		console.log(
-			'*---\nBlog deleted:\n-title:',
-			blog.title,
-			'\n-body:',
-			blog.body
-		);
+		console.log('*---\nBlog deleted:\n-title:', blog.title, '\n-body:', blog.body);
 
 		// Return deleted blog
 		return res.json({ message: 'Blog deleted', blog: deletedBlog });
