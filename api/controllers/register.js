@@ -33,7 +33,7 @@ const POST_register = async (req, res, next) => {
 				isAuthor,
 			},
 		});
-		console.log('*---\nUser registered:\n-', user.username);
+		console.log('*---\nUser registered:\n-', user.username, `\nisAuthor: ${isAuthor}`);
 
 		// Create JWT token
 		const token = generateJWT(user);
