@@ -18,6 +18,8 @@ const POST_register = async (req, res, next) => {
 		// Check if user already exists
 		const username = req.body.username;
 		const password = await bcrypt.hash(req.body.password, 10);
+		const isAuthor = req.body.isAuthor || false;
+
 		const userExists = await prisma.user.findUnique({ where: { username } });
 		if (userExists) {
 			return res.status(409).json({ error: 'Username already exists' });
@@ -28,7 +30,7 @@ const POST_register = async (req, res, next) => {
 			data: {
 				username,
 				password,
-				isAuthor: false,
+				isAuthor,
 			},
 		});
 		console.log('*---\nUser registered:\n-', user.username);
