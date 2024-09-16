@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
+import { sign, verify } from 'jsonwebtoken';
 
 const generateJWT = (user) => {
-	return jwt.sign(
+	return sign(
 		{
 			id: user.id,
 			username: user.username,
@@ -20,15 +20,12 @@ const authorizeJWT = (req, res, next) => {
 
 	// No token - Access denied: Not authenticated
 	if (!token) {
-		return res
-			.status(403)
-			.json({ message: 'Access denied: Not authenticated' });
+		return res.status(403).json({ message: 'Access denied: Not authenticated' });
 	}
 
-	jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+	verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
 		// Invalid token - Access denied: Invalid JWT
-		if (err)
-			return res.status(403).json({ message: 'Access denied: Invalid JWT' });
+		if (err) return res.status(403).json({ message: 'Access denied: Invalid JWT' });
 
 		// Valid token - Acess granted
 		req.user = user;
@@ -42,15 +39,12 @@ const authorizeAuthorJWT = (req, res, next) => {
 
 	// No token - Access denied: Not authenticated
 	if (!token) {
-		return res
-			.status(403)
-			.json({ message: 'Access denied: Not authenticated' });
+		return res.status(403).json({ message: 'Access denied: Not authenticated' });
 	}
 
-	jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+	verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
 		// Invalid token - Access denied: Invalid JWT
-		if (err)
-			return res.status(403).json({ message: 'Access denied: Invalid JWT' });
+		if (err) return res.status(403).json({ message: 'Access denied: Invalid JWT' });
 
 		// Check if user is Author
 		if (!user.isAuthor)
@@ -67,7 +61,7 @@ const softAuthenticateJWT = (req, res, next) => {
 	const token = req.header('Authorization')?.split(' ')[1];
 
 	if (token) {
-		jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+		verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
 			// If valid token: Save user info
 			req.user = user;
 			next();
@@ -77,7 +71,7 @@ const softAuthenticateJWT = (req, res, next) => {
 	}
 };
 
-module.exports = {
+export default {
 	generateJWT,
 	authorizeJWT,
 	authorizeAuthorJWT,

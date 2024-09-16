@@ -1,7 +1,8 @@
-const { validationResult } = require('express-validator');
-const { PrismaClient } = require('@prisma/client');
-const bcrypt = require('bcrypt');
-const { generateJWT } = require('../misc/jwt');
+import chalk from 'chalk';
+import { validationResult } from 'express-validator';
+import { PrismaClient } from '@prisma/client';
+import { hash } from 'bcrypt';
+import { generateJWT } from '../misc/jwt';
 
 const prisma = new PrismaClient();
 
@@ -17,7 +18,7 @@ const POST_register = async (req, res, next) => {
 	try {
 		// Check if user already exists
 		const username = req.body.username;
-		const password = await bcrypt.hash(req.body.password, 10);
+		const password = await hash(req.body.password, 10);
 		const isAuthor = Boolean(req.body.isAuthor) || false;
 
 		const userExists = await prisma.user.findUnique({ where: { username } });
@@ -49,6 +50,6 @@ const POST_register = async (req, res, next) => {
 	}
 };
 
-module.exports = {
+export default {
 	POST_register,
 };

@@ -1,8 +1,8 @@
-const express = require('express');
-const blogsRouter = require('./routes/blogs');
-const registerRouter = require('./routes/register');
-const loginRouter = require('./routes/login');
-const cors = require('cors');
+import express, { json, urlencoded } from 'express';
+import blogsRouter from './routes/blogs';
+import registerRouter from './routes/register';
+import loginRouter from './routes/login';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,8 +13,8 @@ const corsOptions = {
 };
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 // Routes

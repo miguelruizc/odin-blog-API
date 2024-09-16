@@ -1,6 +1,6 @@
-const chalk = require('chalk');
-const { validationResult } = require('express-validator');
-const { PrismaClient } = require('@prisma/client');
+import chalk from 'chalk';
+import { validationResult } from 'express-validator';
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const GET_all_blogs = async (req, res, next) => {
@@ -125,7 +125,7 @@ const POST_create_blog = async (req, res, next) => {
 			},
 		});
 		console.log(
-			chalk.green('*---'),
+			green('*---'),
 			'\nBlog created:\n-title:',
 			post.title,
 			'\n-body:',
@@ -399,7 +399,7 @@ const DELETE_comment = async (req, res, next) => {
 	}
 };
 
-module.exports = {
+export default {
 	GET_all_blogs,
 	GET_one_blog,
 	GET_all_comments,

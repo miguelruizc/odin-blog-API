@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+import { body } from 'express-validator';
 
 const credentialsSanitization = () => {
 	const rules = [
@@ -54,7 +54,7 @@ const commentSanitization = () => {
 	return rules;
 };
 
-module.exports = {
+export default {
 	credentialsSanitization,
 	blogSanitization,
 	commentSanitization,

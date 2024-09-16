@@ -1,7 +1,8 @@
-const { validationResult } = require('express-validator');
-const { PrismaClient } = require('@prisma/client');
-const bcrypt = require('bcrypt');
-const { generateJWT } = require('../misc/jwt');
+import chalk from 'chalk';
+import { validationResult } from 'express-validator';
+import { PrismaClient } from '@prisma/client';
+import { compare } from 'bcrypt';
+import { generateJWT } from '../misc/jwt';
 
 const prisma = new PrismaClient();
 
@@ -23,9 +24,8 @@ const POST_login = async (req, res, next) => {
 		if (!user) return res.status(401).json({ error: "User doesn't exist" });
 
 		// Check if password matches
-		const correctPassword = await bcrypt.compare(password, user.password);
-		if (!correctPassword)
-			return res.status(401).json({ error: 'Invalid password' });
+		const correctPassword = await compare(password, user.password);
+		if (!correctPassword) return res.status(401).json({ error: 'Invalid password' });
 
 		// Generate and send JWT
 		const token = generateJWT(user);
@@ -41,6 +41,6 @@ const POST_login = async (req, res, next) => {
 	}
 };
 
-module.exports = {
+export default {
 	POST_login,
 };
