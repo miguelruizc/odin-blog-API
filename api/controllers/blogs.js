@@ -129,7 +129,7 @@ export const POST_create_blog = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'*---',
+			'*------------------------',
 			'\nBlog created:\n-title:',
 			chalk.green(post.title),
 			'\n-body:',
@@ -181,7 +181,7 @@ export const POST_create_comment = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'*---\nComment created:\n-blogId:',
+			'*------------------------\nComment created:\n-blogId:',
 			chalk.orange(blogId),
 			'\n-body:',
 			chalk.green(comment.body),
@@ -241,7 +241,7 @@ export const PUT_edit_blog = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'*---\nBlog updated:\n-Old title:',
+			'*------------------------\nBlog updated:\n-Old title:',
 			chalk.green(blog.title),
 			'\n-Old body:',
 			chalk.green(blog.body),
@@ -303,7 +303,7 @@ export const PUT_edit_comment = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'*---\nComment updated:\n-Old body:',
+			'*------------------------\nComment updated:\n-Old body:',
 			chalk.green(comment.body),
 			'\n-New body:',
 			chalk.green(updatedComment.body)
@@ -349,7 +349,7 @@ export const DELETE_blog = async (req, res, next) => {
 		});
 
 		console.log(
-			'*---\nBlog deleted:\n-title:',
+			'*------------------------\nBlog deleted:\n-title:',
 			chalk.green(blog.title),
 			'\n-body:',
 			chalk.green(blog.body)
@@ -396,7 +396,7 @@ export const DELETE_comment = async (req, res, next) => {
 			where: { id: commentId },
 		});
 		console.log(
-			`*---\nComment deleted (from blogID:${blogId}):\n`,
+			`*------------------------\nComment deleted (from blogID:${blogId}):\n`,
 			'-body:',
 			chalk.green(deletedComment.body)
 		);

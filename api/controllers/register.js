@@ -35,7 +35,7 @@ export const POST_register = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'*---\nUser registered:\n-',
+			'*------------------------\nUser registered:\n-',
 			chalk.yellow(user.username),
 			`\n- isAuthor: ${isAuthor}`
 		);

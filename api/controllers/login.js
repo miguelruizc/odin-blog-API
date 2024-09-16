@@ -29,7 +29,10 @@ export const POST_login = async (req, res, next) => {
 
 		// Generate and send JWT
 		const token = generateJWT(user);
-		console.log('*---\nUser authenticated:\n-', chalk.yellow(user.username));
+		console.log(
+			'*------------------------\nUser authenticated:\n-',
+			chalk.yellow(user.username)
+		);
 
 		return res.json({
 			message: `User ${user.username} authenticated`,
