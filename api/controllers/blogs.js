@@ -1,3 +1,4 @@
+const { chalk } = require('chalk');
 const { validationResult } = require('express-validator');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -124,7 +125,8 @@ const POST_create_blog = async (req, res, next) => {
 			},
 		});
 		console.log(
-			'*---\nBlog created:\n-title:',
+			chalk.green('*---'),
+			'\nBlog created:\n-title:',
 			post.title,
 			'\n-body:',
 			post.body,
