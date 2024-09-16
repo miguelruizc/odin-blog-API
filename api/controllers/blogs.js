@@ -125,7 +125,7 @@ export const POST_create_blog = async (req, res, next) => {
 			},
 		});
 		console.log(
-			green('*---'),
+			chalk.green('*---'),
 			'\nBlog created:\n-title:',
 			post.title,
 			'\n-body:',
