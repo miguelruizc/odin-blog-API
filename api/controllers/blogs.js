@@ -19,7 +19,7 @@ export const GET_all_blogs = async (req, res, next) => {
 		// Return them
 		res.json(blogs);
 	} catch (error) {
-		console.error('Error handling request (GET /blogs): ', error);
+		console.error(chalk.red('Error handling request (GET /blogs): ', error));
 		next(error);
 	}
 };
@@ -50,7 +50,7 @@ export const GET_one_blog = async (req, res, next) => {
 			blog,
 		});
 	} catch (error) {
-		console.error(`Error handling GET /blogs/${blogId} request: `, error);
+		console.error(chalk.red(`Error handling GET /blogs/${blogId} request: `, error));
 		return next(error);
 	}
 };
@@ -67,7 +67,9 @@ export const GET_all_comments = async (req, res, next) => {
 		// Return them
 		res.json(comments);
 	} catch (error) {
-		console.error(`Error handling request (GET /blogs/${blogId}/comments): `, error);
+		console.error(
+			chalk.red(`Error handling request (GET /blogs/${blogId}/comments): `, error)
+		);
 		next(error);
 	}
 };
@@ -97,8 +99,10 @@ export const GET_one_comment = async (req, res, next) => {
 		});
 	} catch (error) {
 		console.error(
-			`Error handling GET /blogs/${blogId}/comments/${commentId} request: `,
-			error
+			chalk.red(
+				`Error handling GET /blogs/${blogId}/comments/${commentId} request: `,
+				error
+			)
 		);
 		return next(error);
 	}
@@ -125,13 +129,13 @@ export const POST_create_blog = async (req, res, next) => {
 			},
 		});
 		console.log(
-			chalk.green('*---'),
+			'*---',
 			'\nBlog created:\n-title:',
-			post.title,
+			chalk.green(post.title),
 			'\n-body:',
-			post.body,
+			chalk.green(post.body),
 			'\n-author:',
-			post.author.username
+			chalk.yellow(post.author.username)
 		);
 
 		// Respond with blog info
@@ -142,7 +146,7 @@ export const POST_create_blog = async (req, res, next) => {
 			author: post.author.username,
 		});
 	} catch (error) {
-		console.error('Error handling request /POST blogs: ', error);
+		console.error(chalk.red('Error handling request /POST blogs: ', error));
 		return next(error);
 	}
 };
@@ -178,11 +182,11 @@ export const POST_create_comment = async (req, res, next) => {
 		});
 		console.log(
 			'*---\nComment created:\n-blogId:',
-			blogId,
+			chalk.orange(blogId),
 			'\n-body:',
-			comment.body,
+			chalk.green(comment.body),
 			'\n-author:',
-			comment.author
+			chalk.yellow(comment.author)
 		);
 
 		// Respond with comment info
@@ -194,8 +198,10 @@ export const POST_create_comment = async (req, res, next) => {
 		});
 	} catch (error) {
 		console.error(
-			'Error handling POST /blog/:blogId/comment request (create blog): ',
-			error
+			chalk.red(
+				'Error handling POST /blog/:blogId/comment request (create blog): ',
+				error
+			)
 		);
 		return next(error);
 	}
@@ -236,19 +242,19 @@ export const PUT_edit_blog = async (req, res, next) => {
 		});
 		console.log(
 			'*---\nBlog updated:\n-Old title:',
-			blog.title,
+			chalk.green(blog.title),
 			'\n-Old body:',
-			blog.body,
+			chalk.green(blog.body),
 			'\n-New title:',
-			updatedBlog.title,
+			chalk.green(updatedBlog.title),
 			'\n-New body:',
-			updatedBlog.body
+			chalk.green(updatedBlog.body)
 		);
 
 		// Return updated blog
 		return res.json({ message: 'Blog updated', blog: updatedBlog });
 	} catch (error) {
-		console.error(`Error handling request PUT /blog/${blogId}: `, error);
+		console.error(chalk.red(`Error handling request PUT /blog/${blogId}: `, error));
 		return next(error);
 	}
 };
@@ -298,17 +304,19 @@ export const PUT_edit_comment = async (req, res, next) => {
 		});
 		console.log(
 			'*---\nComment updated:\n-Old body:',
-			comment.body,
+			chalk.green(comment.body),
 			'\n-New body:',
-			updatedComment.body
+			chalk.green(updatedComment.body)
 		);
 
 		// Return updated comment
 		return res.json({ message: 'Comment updated', comment: updatedComment });
 	} catch (error) {
 		console.error(
-			`Error handling request PUT /blog/${blogId}/comments/${commentId}: `,
-			error
+			chalk.red(
+				`Error handling request PUT /blog/${blogId}/comments/${commentId}: `,
+				error
+			)
 		);
 		return next(error);
 	}
@@ -340,12 +348,17 @@ export const DELETE_blog = async (req, res, next) => {
 			where: { id: blogId },
 		});
 
-		console.log('*---\nBlog deleted:\n-title:', blog.title, '\n-body:', blog.body);
+		console.log(
+			'*---\nBlog deleted:\n-title:',
+			chalk.green(blog.title),
+			'\n-body:',
+			chalk.green(blog.body)
+		);
 
 		// Return deleted blog
 		return res.json({ message: 'Blog deleted', blog: deletedBlog });
 	} catch (error) {
-		console.error(`Error handling request DELETE /blog/${blogId}: `, error);
+		console.error(chalk.red(`Error handling request DELETE /blog/${blogId}: `, error));
 		return next(error);
 	}
 };
@@ -385,15 +398,17 @@ export const DELETE_comment = async (req, res, next) => {
 		console.log(
 			`*---\nComment deleted (from blogID:${blogId}):\n`,
 			'-body:',
-			deletedComment.body
+			chalk.green(deletedComment.body)
 		);
 
 		// Return deleted comment
 		return res.json({ message: 'Comment deleted', comment: deletedComment });
 	} catch (error) {
 		console.error(
-			`Error handling request DELETE /blog/${blogId}/comments/${commentId} `,
-			error
+			chalk.red(
+				`Error handling request DELETE /blog/${blogId}/comments/${commentId} `,
+				error
+			)
 		);
 		return next(error);
 	}

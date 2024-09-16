@@ -34,7 +34,11 @@ export const POST_register = async (req, res, next) => {
 				isAuthor,
 			},
 		});
-		console.log('*---\nUser registered:\n-', user.username, `\n- isAuthor: ${isAuthor}`);
+		console.log(
+			'*---\nUser registered:\n-',
+			chalk.yellow(user.username),
+			`\n- isAuthor: ${isAuthor}`
+		);
 
 		// Create JWT token
 		const token = generateJWT(user);
@@ -45,7 +49,7 @@ export const POST_register = async (req, res, next) => {
 			JWT: token,
 		});
 	} catch (error) {
-		console.error('Error handling POST /register request: ', error);
+		console.error(chalk.red('Error handling POST /register request: ', error));
 		return next(error);
 	}
 };
