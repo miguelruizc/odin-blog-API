@@ -59,10 +59,13 @@ function MyBlogs() {
 	};
 
 	// Create blog cards
-	let blogCards;
+	let blogCards = [];
+	let currentUserBlogs;
 	if (blogs) {
-		blogCards = blogs.map((blog) => {
-			console.log(blog);
+		currentUserBlogs = blogs.filter(
+			(blog) => blog.author.username === localStorage.getItem('username')
+		);
+		blogCards = currentUserBlogs.map((blog) => {
 			return (
 				<div className="blogCard" key={blog.id}>
 					<h3>{blog.title}</h3>
@@ -84,7 +87,7 @@ function MyBlogs() {
 			<h2>My Blogs</h2>
 			{loading && <p>Loading...</p>}
 			{error && <p>Error: {error}</p>}
-			{blogs && blogCards}
+			{!loading && (blogs && blogCards.length > 0 ? blogCards : <p>No blogs found...</p>)}
 		</div>
 	);
 }
