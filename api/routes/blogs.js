@@ -11,9 +11,9 @@ import {
 	PUT_edit_comment,
 	DELETE_blog,
 	DELETE_comment,
-} from '../controllers/blogs';
-import { authorizeJWT, softAuthenticateJWT, authorizeAuthorJWT } from '../misc/jwt';
-import { blogSanitization, commentSanitization } from '../misc/userInputSanitization';
+} from '../controllers/blogs.js';
+import { authorizeJWT, softAuthenticateJWT, authorizeAuthorJWT } from '../misc/jwt.js';
+import { blogSanitization, commentSanitization } from '../misc/userInputSanitization.js';
 
 router.get('/', GET_all_blogs);
 router.get('/:blogId', GET_one_blog);
