@@ -87,7 +87,9 @@ function MyBlogs() {
 			<h2>My Blogs</h2>
 			{loading && <p>Loading...</p>}
 			{error && <p>Error: {error}</p>}
-			{!loading && (blogs && blogCards.length > 0 ? blogCards : <p>No blogs found...</p>)}
+			{!loading &&
+				!error &&
+				(blogs && blogCards.length > 0 ? blogCards : <p>No blogs found...</p>)}
 		</div>
 	);
 }

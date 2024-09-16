@@ -49,7 +49,7 @@ function NewBlog() {
 	};
 
 	return (
-		<>
+		<div className="main new-blog">
 			<h1>New Blog</h1>
 			<form className="newBlogForm" onSubmit={submitHandler}>
 				<div>
@@ -63,7 +63,7 @@ function NewBlog() {
 				<button type="submit">Submit</button>
 			</form>
 			<div className="errors"></div>
-		</>
+		</div>
 	);
 }
 
