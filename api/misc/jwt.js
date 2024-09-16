@@ -1,7 +1,7 @@
 import jsonwebtoken from 'jsonwebtoken';
 const { sign, verify } = jsonwebtoken;
 
-const generateJWT = (user) => {
+export const generateJWT = (user) => {
 	return sign(
 		{
 			id: user.id,
@@ -15,7 +15,7 @@ const generateJWT = (user) => {
 	);
 };
 
-const authorizeJWT = (req, res, next) => {
+export const authorizeJWT = (req, res, next) => {
 	// Extract JWT from Authorization header
 	const token = req.header('Authorization')?.split(' ')[1];
 
@@ -34,7 +34,7 @@ const authorizeJWT = (req, res, next) => {
 	});
 };
 
-const authorizeAuthorJWT = (req, res, next) => {
+export const authorizeAuthorJWT = (req, res, next) => {
 	// Extract JWT from Authorization header
 	const token = req.header('Authorization')?.split(' ')[1];
 
@@ -57,7 +57,7 @@ const authorizeAuthorJWT = (req, res, next) => {
 	});
 };
 
-const softAuthenticateJWT = (req, res, next) => {
+export const softAuthenticateJWT = (req, res, next) => {
 	// Extract JWT from Authorization header
 	const token = req.header('Authorization')?.split(' ')[1];
 
@@ -70,11 +70,4 @@ const softAuthenticateJWT = (req, res, next) => {
 	} else {
 		next();
 	}
-};
-
-export default {
-	generateJWT,
-	authorizeJWT,
-	authorizeAuthorJWT,
-	softAuthenticateJWT,
 };

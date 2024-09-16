@@ -6,7 +6,7 @@ import { generateJWT } from '../misc/jwt.js';
 
 const prisma = new PrismaClient();
 
-const POST_login = async (req, res, next) => {
+export const POST_login = async (req, res, next) => {
 	// Check for validation/sanitization errors
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -39,8 +39,4 @@ const POST_login = async (req, res, next) => {
 		console.error('Error handling POST /login request: ', error);
 		return next(error);
 	}
-};
-
-export default {
-	POST_login,
 };

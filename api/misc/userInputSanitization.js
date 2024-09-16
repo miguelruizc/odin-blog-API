@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-const credentialsSanitization = () => {
+export const credentialsSanitization = () => {
 	const rules = [
 		body('username')
 			.notEmpty()
@@ -19,7 +19,7 @@ const credentialsSanitization = () => {
 	return rules;
 };
 
-const blogSanitization = () => {
+export const blogSanitization = () => {
 	const rules = [
 		body('title')
 			.notEmpty()
@@ -40,7 +40,7 @@ const blogSanitization = () => {
 	return rules;
 };
 
-const commentSanitization = () => {
+export const commentSanitization = () => {
 	const rules = [
 		body('body')
 			.notEmpty()
@@ -52,10 +52,4 @@ const commentSanitization = () => {
 	];
 
 	return rules;
-};
-
-export default {
-	credentialsSanitization,
-	blogSanitization,
-	commentSanitization,
 };

@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-const GET_all_blogs = async (req, res, next) => {
+export const GET_all_blogs = async (req, res, next) => {
 	try {
 		// Query all blogs from database
 		const blogs = await prisma.blog.findMany({
@@ -23,7 +23,7 @@ const GET_all_blogs = async (req, res, next) => {
 		next(error);
 	}
 };
-const GET_one_blog = async (req, res, next) => {
+export const GET_one_blog = async (req, res, next) => {
 	// Check if :blogId is valid
 	const blogId = parseInt(req.params.blogId);
 	if (isNaN(blogId)) {
@@ -54,7 +54,7 @@ const GET_one_blog = async (req, res, next) => {
 		return next(error);
 	}
 };
-const GET_all_comments = async (req, res, next) => {
+export const GET_all_comments = async (req, res, next) => {
 	// Check if :blogId is valid
 	const blogId = parseInt(req.params.blogId);
 	if (isNaN(blogId)) {
@@ -71,7 +71,7 @@ const GET_all_comments = async (req, res, next) => {
 		next(error);
 	}
 };
-const GET_one_comment = async (req, res, next) => {
+export const GET_one_comment = async (req, res, next) => {
 	// Check if :blogId is valid
 	const blogId = parseInt(req.params.blogId);
 	if (isNaN(blogId)) {
@@ -103,7 +103,7 @@ const GET_one_comment = async (req, res, next) => {
 		return next(error);
 	}
 };
-const POST_create_blog = async (req, res, next) => {
+export const POST_create_blog = async (req, res, next) => {
 	// Check for validation/sanitization errors
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -146,7 +146,7 @@ const POST_create_blog = async (req, res, next) => {
 		return next(error);
 	}
 };
-const POST_create_comment = async (req, res, next) => {
+export const POST_create_comment = async (req, res, next) => {
 	// Check if :blogId is valid
 	const blogId = parseInt(req.params.blogId);
 	if (isNaN(blogId)) {
@@ -200,7 +200,7 @@ const POST_create_comment = async (req, res, next) => {
 		return next(error);
 	}
 };
-const PUT_edit_blog = async (req, res, next) => {
+export const PUT_edit_blog = async (req, res, next) => {
 	// Check if :blogId is valid
 	const blogId = parseInt(req.params.blogId);
 	if (isNaN(blogId)) {
@@ -252,7 +252,7 @@ const PUT_edit_blog = async (req, res, next) => {
 		return next(error);
 	}
 };
-const PUT_edit_comment = async (req, res, next) => {
+export const PUT_edit_comment = async (req, res, next) => {
 	// Check if :blogId is valid
 	const blogId = parseInt(req.params.blogId);
 	if (isNaN(blogId)) {
@@ -313,7 +313,7 @@ const PUT_edit_comment = async (req, res, next) => {
 		return next(error);
 	}
 };
-const DELETE_blog = async (req, res, next) => {
+export const DELETE_blog = async (req, res, next) => {
 	// Check if :blogId is valid
 	const blogId = parseInt(req.params.blogId);
 	if (isNaN(blogId)) {
@@ -349,7 +349,7 @@ const DELETE_blog = async (req, res, next) => {
 		return next(error);
 	}
 };
-const DELETE_comment = async (req, res, next) => {
+export const DELETE_comment = async (req, res, next) => {
 	// Check if :blogId is valid
 	const blogId = parseInt(req.params.blogId);
 	if (isNaN(blogId)) {
@@ -397,17 +397,4 @@ const DELETE_comment = async (req, res, next) => {
 		);
 		return next(error);
 	}
-};
-
-export default {
-	GET_all_blogs,
-	GET_one_blog,
-	GET_all_comments,
-	GET_one_comment,
-	POST_create_blog,
-	POST_create_comment,
-	PUT_edit_blog,
-	PUT_edit_comment,
-	DELETE_blog,
-	DELETE_comment,
 };
