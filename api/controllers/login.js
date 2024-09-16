@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { validationResult } from 'express-validator';
 import { PrismaClient } from '@prisma/client';
 import { compare } from 'bcrypt';
-import { generateJWT } from '../misc/jwt';
+import { generateJWT } from '../misc/jwt.js';
 
 const prisma = new PrismaClient();
 

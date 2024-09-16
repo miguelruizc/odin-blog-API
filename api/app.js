@@ -1,7 +1,7 @@
 import express, { json, urlencoded } from 'express';
-import blogsRouter from './routes/blogs';
-import registerRouter from './routes/register';
-import loginRouter from './routes/login';
+import blogsRouter from './routes/blogs.js';
+import registerRouter from './routes/register.js';
+import loginRouter from './routes/login.js';
 import cors from 'cors';
 
 const app = express();
