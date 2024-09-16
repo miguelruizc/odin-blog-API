@@ -20,9 +20,6 @@ function NewBlog() {
 		const body = formData.get('body');
 		event.target.reset();
 
-		console.log('title: ', title);
-		console.log('body: ', body);
-
 		fetch('https://blogapi.miguelruizc.xyz/blogs', {
 			method: 'POST',
 			headers: {
