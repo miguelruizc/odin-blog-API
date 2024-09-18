@@ -187,7 +187,9 @@ form > div {
 	color: rgb(150, 150, 150);
 }
 
-.commentForm {
+.commentForm,
+.newBlogForm,
+.editBlogForm {
 	max-width: none;
 	width: auto;
 	display: flex;
@@ -198,6 +200,8 @@ form > div {
 .commentForm button {
 	max-width: fit-content;
 	align-self: center;
+	padding-left: 8px;
+	padding-right: 8px;
 }
 
 textarea {
@@ -207,4 +211,20 @@ textarea {
 .errors * {
 	margin-top: 8px;
 	color: red;
+}
+
+.newBlogForm button,
+.editBlogForm button {
+	max-width: fit-content;
+	align-self: center;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+textarea {
+	height: 500px;
+}
+
+.blogCard p {
+	white-space: pre-line;
 }

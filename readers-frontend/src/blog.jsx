@@ -87,7 +87,7 @@ function Blog() {
 			<div key={index} className="commentCard">
 				<p>{comment.body}</p>
 				<p className="signature">
-					-by <strong>{comment.author}</strong> on {formatDate(blog.createdAt)}
+					-by <strong>{comment.author}</strong> on {formatDate(comment.createdAt)}
 				</p>
 			</div>
 		));

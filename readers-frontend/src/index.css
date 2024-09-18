@@ -192,6 +192,8 @@ form > div {
 .commentForm button {
 	max-width: fit-content;
 	align-self: center;
+	padding-left: 8px;
+	padding-right: 8px;
 }
 
 textarea {
@@ -201,4 +203,9 @@ textarea {
 .errors * {
 	margin-top: 8px;
 	color: red;
+}
+
+.blogCard p,
+.blog-details p {
+	white-space: pre-line;
 }
