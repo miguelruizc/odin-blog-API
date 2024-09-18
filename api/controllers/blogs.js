@@ -40,6 +40,7 @@ export const GET_one_blog = async (req, res, next) => {
 						username: true,
 					},
 				},
+				comments: true,
 			},
 		});
 		// Not Found

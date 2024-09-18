@@ -50,7 +50,7 @@ function AllBlogs() {
 					<p>{truncateString(blog.body, 50)}</p>
 					<p>Author: {blog.author.username}</p>
 					<p>{formatDate(blog.createdAt)}</p>
-					<a href={`/details/${blog.id}`}>Show more</a>
+					<a href={`/blog/${blog.id}`}>Show more</a>
 				</div>
 			);
 		});

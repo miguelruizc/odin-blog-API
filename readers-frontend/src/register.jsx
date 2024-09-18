@@ -26,7 +26,7 @@ function Register({ setIsAuthenticated }) {
 				body: JSON.stringify({
 					username,
 					password,
-					isAuthor: true,
+					isAuthor: false,
 				}),
 			});
 

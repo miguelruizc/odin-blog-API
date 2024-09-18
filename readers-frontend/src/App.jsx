@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import Nav from './nav';
 import AllBlogs from './all-blogs';
-import NewBlog from './new-blog';
-import EditBlog from './edit-blog';
+import Blog from './blog';
 import Register from './register';
 import Login from './login';
 import Logout from './logout';
@@ -19,10 +18,6 @@ function App() {
 			<Nav isAuthenticated={isAuthenticated} />
 			<Routes>
 				<Route path="/" element={<AllBlogs />} />
-				<Route path="/new-blog" element={<NewBlog />} />
-				<Route path="/edit-blog" element={<EditBlog />}>
-					<Route path=":blogId" />
-				</Route>
 				<Route
 					path="/register"
 					element={<Register setIsAuthenticated={setIsAuthenticated} />}
@@ -35,6 +30,9 @@ function App() {
 					path="/logout"
 					element={<Logout setIsAuthenticated={setIsAuthenticated} />}
 				/>
+				<Route path="/blog">
+					<Route path=":blogId" element={<Blog />} />
+				</Route>
 				<Route path="*" element={<Error />} />
 			</Routes>
 		</BrowserRouter>
