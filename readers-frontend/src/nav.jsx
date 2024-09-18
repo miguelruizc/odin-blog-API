@@ -4,7 +4,10 @@ function Nav({ isAuthenticated }) {
 	if (isAuthenticated) {
 		return (
 			<nav>
-				<h2>ReadersFrontend</h2>
+				<a href="/">
+					<h2>ReadersFrontend</h2>
+				</a>
+
 				<ul>
 					<li>
 						<Link to="/">All blogs</Link>
@@ -19,7 +22,10 @@ function Nav({ isAuthenticated }) {
 	} else {
 		return (
 			<nav>
-				<h2>ReadersFrontend</h2>
+				<a href="/">
+					<h2>ReadersFrontend</h2>
+				</a>
+
 				<ul>
 					<li>
 						<Link to="/">All blogs</Link>

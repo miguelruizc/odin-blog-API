@@ -41,6 +41,46 @@ function Blog() {
 			});
 	}
 
+	// Submit comment handler
+	const submitComment = () => {
+		event.preventDefault();
+
+		// Get errors div
+		const errorsDiv = document.querySelector('.errors');
+		errorsDiv.innerHTML = '';
+
+		// Send form data to API
+		const formData = new FormData(event.target);
+		const comment = formData.get('comment');
+		event.target.reset();
+
+		fetch(`https://blogapi.miguelruizc.xyz/blogs/${blogId}/comments`, {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				body: comment,
+			}),
+		})
+			.then((response) => {
+				if (!response.ok) {
+					// Show errors in errors div
+					return response
+						.json()
+						.then((json) => (errorsDiv.textContent = JSON.stringify(json.errors)));
+				}
+				// Fetch blog again with new comment to refresh
+				fetchBlog();
+			})
+			.catch((error) => {
+				console.error(error);
+				// Show errors in errors div
+				errorsDiv.textContent = error;
+			});
+	};
+
 	// Create comment cards
 	function commentCards() {
 		return blog.comments.map((comment, index) => (
@@ -69,13 +109,14 @@ function Blog() {
 						{blog.comments.length > 0 ? commentCards() : <p>No comments...</p>}
 					</div>
 
-					<form action="">
+					<form className="commentForm" action="" onSubmit={submitComment}>
 						<div>
 							<label htmlFor="comment">Comment: </label>
 							<textarea name="comment"></textarea>
 						</div>
 						<button type="submit">Submit</button>
 					</form>
+					<div className="errors"></div>
 				</>
 			)}
 		</div>
@@ -83,3 +124,5 @@ function Blog() {
 }
 
 export default Blog;
+
+//minLength={3} maxLength={150} required

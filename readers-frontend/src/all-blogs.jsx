@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { formatDate } from '../misc/formatDate';
-import { Link } from 'react-router-dom';
 import { truncateString } from '../misc/truncateString.js';
 
 function AllBlogs() {
