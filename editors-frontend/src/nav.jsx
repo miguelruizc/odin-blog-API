@@ -4,7 +4,9 @@ function Nav({ isAuthenticated }) {
 	if (isAuthenticated) {
 		return (
 			<nav>
-				<h2>EditorsFrontend</h2>
+				<a href="/">
+					<h2>EditorsFrontend</h2>
+				</a>
 				<ul>
 					<li>
 						<Link to="/">My Blogs</Link>
@@ -22,7 +24,9 @@ function Nav({ isAuthenticated }) {
 	} else {
 		return (
 			<nav>
-				<h2>EditorsFrontend</h2>
+				<a href="/">
+					<h2>EditorsFrontend</h2>
+				</a>
 				<ul>
 					<li>
 						<Link to="/login">Log In</Link>

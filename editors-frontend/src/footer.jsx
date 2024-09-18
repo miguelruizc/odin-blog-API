@@ -1,7 +1,7 @@
 function Footer() {
 	return (
 		<footer>
-			<a href="https://book">🕮 Readers site</a>
+			<a href="http://localhost:5173">🕮 Readers site</a>
 		</footer>
 	);
 }
