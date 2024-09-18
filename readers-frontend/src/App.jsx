@@ -32,7 +32,7 @@ function App() {
 					element={<Logout setIsAuthenticated={setIsAuthenticated} />}
 				/>
 				<Route path="/blog">
-					<Route path=":blogId" element={<Blog />} />
+					<Route path=":blogId" element={<Blog isAuthenticated={isAuthenticated} />} />
 				</Route>
 				<Route path="*" element={<Error />} />
 			</Routes>

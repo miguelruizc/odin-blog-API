@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../misc/formatDate.js';
 
-function Blog() {
+function Blog({ isAuthenticated }) {
 	const [blog, setBlog] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -93,6 +93,22 @@ function Blog() {
 		));
 	}
 
+	// Create comment form (deactivated if not authenticated)
+	const commentTextarea = (
+		<textarea
+			name="comment"
+			required
+			maxLength={150}
+			minLength={3}
+			title={isAuthenticated ? '' : 'Authenticate to post comments'}
+			disabled={isAuthenticated ? false : true}
+		></textarea>
+	);
+	const submitCommentButton = (
+		<button type="submit" disabled={isAuthenticated ? false : true}>
+			{isAuthenticated ? 'Submit' : 'Log in to comment'}
+		</button>
+	);
 	// Blog details
 	return (
 		<div className="main blog-details">
@@ -114,9 +130,9 @@ function Blog() {
 					<form className="commentForm" action="" onSubmit={submitComment}>
 						<div>
 							<label htmlFor="comment">Comment: </label>
-							<textarea name="comment"></textarea>
+							{commentTextarea}
 						</div>
-						<button type="submit">Submit</button>
+						{submitCommentButton}
 					</form>
 					<div className="errors"></div>
 				</>
