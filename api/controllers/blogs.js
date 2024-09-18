@@ -183,7 +183,7 @@ export const POST_create_comment = async (req, res, next) => {
 		});
 		console.log(
 			'*------------------------\nComment created:\n-blogId:',
-			chalk.orange(blogId),
+			chalk.cyan(blogId),
 			'\n-body:',
 			chalk.green(comment.body),
 			'\n-author:',
