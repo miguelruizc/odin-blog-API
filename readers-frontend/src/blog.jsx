@@ -66,7 +66,7 @@ function Blog() {
 					<p>Author: {blog.author.username}</p>
 					<div className="comments">
 						<h3>Comments: </h3>
-						{commentCards()}
+						{blog.comments.length > 0 ? commentCards() : <p>No comments...</p>}
 					</div>
 
 					<form action="">
