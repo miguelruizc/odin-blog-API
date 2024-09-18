@@ -12,10 +12,12 @@ function Nav({ isAuthenticated }) {
 						<li>
 							<Link to="/">All blogs</Link>
 						</li>
-						<li>
-							<Link to="/logout">(Log Out)</Link>
-						</li>
-						<li>| 😎{localStorage.getItem('username')}</li>
+						<div className="loginLogout">
+							<li>
+								<Link to="/logout">(Log Out)</Link>
+							</li>
+							<li className="usernameNav"> | ✦{localStorage.getItem('username')}</li>
+						</div>
 					</ul>
 				</div>
 			</nav>
@@ -31,12 +33,14 @@ function Nav({ isAuthenticated }) {
 						<li>
 							<Link to="/">All blogs</Link>
 						</li>
-						<li>
-							<Link to="/login">Log In</Link>
-						</li>
-						<li>
-							<Link to="/register">Register</Link>
-						</li>
+						<div className="loginLogout">
+							<li>
+								<Link to="/login">Log In</Link>
+							</li>
+							<li>
+								<Link to="/register">Register</Link>
+							</li>
+						</div>
 					</ul>
 				</div>
 			</nav>
