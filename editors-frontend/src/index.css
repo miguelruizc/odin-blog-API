@@ -4,6 +4,20 @@
 	box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+	height: 100%;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+}
+.main {
+	flex: 1;
+}
+
 nav {
 	display: flex;
 	justify-content: space-between;
@@ -28,4 +42,17 @@ nav ul {
 .blogCard {
 	background-color: rgb(255, 255, 255);
 	border: 1px solid black;
+}
+
+footer {
+	background-color: transparent;
+	position: sticky;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+}
+
+footer a {
+	background-color: rgb(154, 255, 107);
 }

@@ -8,6 +8,7 @@ import Register from './register';
 import Login from './login';
 import Logout from './logout';
 import Error from './error';
+import Footer from './footer';
 
 function App() {
 	const [isAuthenticated, setIsAuthenticated] = useState(
@@ -37,6 +38,7 @@ function App() {
 				/>
 				<Route path="*" element={<Error />} />
 			</Routes>
+			<Footer />
 		</BrowserRouter>
 	);
 }
