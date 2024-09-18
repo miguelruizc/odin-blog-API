@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { formatDate } from '../misc/formatDate.js';
 
 function Blog() {
 	const [blog, setBlog] = useState(null);
@@ -40,6 +41,18 @@ function Blog() {
 			});
 	}
 
+	// Create comment cards
+	function commentCards() {
+		return blog.comments.map((comment, index) => (
+			<div key={index} className="commentCard">
+				<p>{comment.body}</p>
+				<p>
+					{comment.author}[{formatDate(comment.createdAt)}]
+				</p>
+			</div>
+		));
+	}
+
 	// Blog details
 	return (
 		<div className="main blog-details">
@@ -51,7 +64,10 @@ function Blog() {
 					<h2>{blog.title}</h2>
 					<p>{blog.body}</p>
 					<p>Author: {blog.author.username}</p>
-					<div className="comments">{blog.comments}</div>
+					<div className="comments">
+						<h3>Comments: </h3>
+						{commentCards()}
+					</div>
 
 					<form action="">
 						<div>
