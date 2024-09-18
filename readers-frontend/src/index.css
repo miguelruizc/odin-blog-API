@@ -34,3 +34,16 @@ nav ul {
 	display: flex;
 	flex-direction: column;
 }
+
+footer {
+	background-color: transparent;
+	position: sticky;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+}
+
+footer a {
+	background-color: yellow;
+}
