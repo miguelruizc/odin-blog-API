@@ -198,6 +198,9 @@ form > div {
 
 textarea {
 	resize: vertical;
+	font-family: inherit;
+	font-size: inherit;
+	padding: 8px;
 }
 
 .errors * {
