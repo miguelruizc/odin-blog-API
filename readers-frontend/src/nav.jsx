@@ -12,6 +12,7 @@ function Nav({ isAuthenticated }) {
 					<li>
 						<Link to="/logout">Log Out</Link>
 					</li>
+					<li>| 😎{localStorage.getItem('username')}</li>
 				</ul>
 			</nav>
 		);

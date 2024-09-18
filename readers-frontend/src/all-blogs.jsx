@@ -36,9 +36,6 @@ function AllBlogs() {
 		fetchBlogs();
 	}, []);
 
-	// // User not authenticated
-	// if (!localStorage.getItem('jwt')) return <Navigate to="/login" />;
-
 	// Create blog cards
 	let blogCards = [];
 	if (blogs) {
