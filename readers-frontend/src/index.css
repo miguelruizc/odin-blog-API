@@ -1,0 +1,31 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	background-color: #6bff9a;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+}
+
+.errors {
+	color: red;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.blogCard {
+	background-color: rgb(255, 255, 255);
+	border: 1px solid black;
+}

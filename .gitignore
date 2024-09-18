@@ -3,9 +3,10 @@ api/.env
 readers-frontend/node_modules
 readers-frontend/.env
 editors-frontend/node_modules
-editors-frontend/api/.env
+editors-frontend/.env
 todo.md
 editors-frontend/todo.md
+readers-frontend/todo.md
 curl-commands.txt
 
 # Logs
@@ -32,3 +33,28 @@ editors-frontend/*.ntvs*
 editors-frontend/*.njsproj
 editors-frontend/*.sln
 editors-frontend/*.sw?
+
+# Logs
+readers-frontend/logs
+readers-frontend/*.log
+readers-frontend/npm-debug.log*
+readers-frontend/yarn-debug.log*
+readers-frontend/yarn-error.log*
+readers-frontend/pnpm-debug.log*
+readers-frontend/lerna-debug.log*
+
+readers-frontend/node_modules
+readers-frontend/dist
+readers-frontend/dist-ssr
+readers-frontend/*.local
+
+# Editor directories and files
+readers-frontend/.vscode/*
+readers-frontend/!.vscode/extensions.json
+readers-frontend/.idea
+readers-frontend/.DS_Store
+readers-frontend/*.suo
+readers-frontend/*.ntvs*
+readers-frontend/*.njsproj
+readers-frontend/*.sln
+readers-frontend/*.sw?
