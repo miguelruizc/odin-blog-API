@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { formatDate } from '../misc/formatDate';
 import { Link } from 'react-router-dom';
+import { truncateString } from '../misc/truncateString.js';
 
-function MyBlogs() {
+function AllBlogs() {
 	const [blogs, setBlogs] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -35,47 +36,24 @@ function MyBlogs() {
 		fetchBlogs();
 	}, []);
 
-	// User not authenticated
-	if (!localStorage.getItem('jwt')) return <Navigate to="/login" />;
-
-	// Delete blog handler
-	const handleDelete = (blogId, event) => {
-		event.preventDefault();
-		fetch(`https://blogapi.miguelruizc.xyz/blogs/${blogId}`, {
-			method: 'DELETE',
-			headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` },
-		})
-			.then((response) => {
-				if (!response.ok) {
-					alert('Something went wrong, response not OK');
-				}
-				// Item deleted, force rerender
-				fetchBlogs();
-			})
-			.catch((error) => {
-				console.error(error.message);
-				alert(`Something went wrong: ${error.message}`);
-			});
-	};
+	// // User not authenticated
+	// if (!localStorage.getItem('jwt')) return <Navigate to="/login" />;
 
 	// Create blog cards
 	let blogCards = [];
-	let currentUserBlogs;
 	if (blogs) {
-		currentUserBlogs = blogs.filter(
-			(blog) => blog.author.username === localStorage.getItem('username')
+		// Order blogs by creation time (newer first)
+		const orderedBlogs = blogs.sort(
+			(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
 		);
-		blogCards = currentUserBlogs.map((blog) => {
+		blogCards = orderedBlogs.map((blog) => {
 			return (
 				<div className="blogCard" key={blog.id}>
 					<h3>{blog.title}</h3>
-					<p>{blog.body}</p>
+					<p>{truncateString(blog.body, 50)}</p>
 					<p>Author: {blog.author.username}</p>
 					<p>{formatDate(blog.createdAt)}</p>
-					<Link to={`/edit-blog/${blog.id}`}>Edit</Link>
-					<a href="" onClick={() => handleDelete(blog.id, event)}>
-						Delete
-					</a>
+					<a href={`/details/${blog.id}`}>Show more</a>
 				</div>
 			);
 		});
@@ -84,7 +62,7 @@ function MyBlogs() {
 	// JSX elements
 	return (
 		<div className="main blogs">
-			<h2>My Blogs</h2>
+			<h2>All Blogs</h2>
 			{loading && <p>Loading...</p>}
 			{error && <p>Error: {error}</p>}
 			{!loading &&
@@ -94,4 +72,4 @@ function MyBlogs() {
 	);
 }
 
-export default MyBlogs;
+export default AllBlogs;

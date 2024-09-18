@@ -21,6 +21,9 @@ function Nav({ isAuthenticated }) {
 				<h2>ReadersFrontend</h2>
 				<ul>
 					<li>
+						<Link to="/">All blogs</Link>
+					</li>
+					<li>
 						<Link to="/login">Log In</Link>
 					</li>
 					<li>
