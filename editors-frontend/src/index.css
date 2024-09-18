@@ -30,9 +30,9 @@ nav {
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	background-color: var(--readers-color);
+	background-color: var(--editors-color);
 	padding: 8px;
-	box-shadow: 2px 10px 0px -7px rgba(0, 0, 0, 0.75);
+	box-shadow: 2px 10px 0px -7px rgba(0, 162, 255, 0.75);
 }
 
 .navInner {
@@ -125,13 +125,13 @@ footer a {
 }
 
 footer a {
-	background-color: var(--editors-color);
+	background-color: var(--readers-color);
 	padding: 8px;
 }
 
 h3 {
-	background-color: var(--readers-color);
-	box-shadow: 2px 10px 0px -7px rgba(0, 0, 0, 0.75);
+	background-color: var(--editors-color);
+	box-shadow: 2px 10px 0px -7px rgba(0, 162, 255, 0.75);
 	color: white;
 	margin-bottom: 8px;
 }
