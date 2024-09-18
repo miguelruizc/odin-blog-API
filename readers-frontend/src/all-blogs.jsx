@@ -45,9 +45,10 @@ function AllBlogs() {
 			return (
 				<div className="blogCard" key={blog.id}>
 					<h3>{blog.title}</h3>
-					<p>{truncateString(blog.body, 50)}</p>
-					<p>Author: {blog.author.username}</p>
-					<p>{formatDate(blog.createdAt)}</p>
+					<p>{truncateString(blog.body, 250)}</p>
+					<p className="signature">
+						-by <strong>{blog.author.username}</strong> on {formatDate(blog.createdAt)}
+					</p>
 					<a href={`/blog/${blog.id}`}>Show more</a>
 				</div>
 			);

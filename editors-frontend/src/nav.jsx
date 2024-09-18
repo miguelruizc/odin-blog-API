@@ -9,17 +9,19 @@ function Nav({ isAuthenticated }) {
 						<h2>EditorsFrontend</h2>
 					</a>
 					<ul>
-						<li>
-							<Link to="/">My Blogs</Link>
-						</li>
-						<li>
-							<Link to="/new-blog">New Blog</Link>
-						</li>
-						<div className="loginLogout">
+						<div className="blogsNav">
 							<li>
-								<Link to="/logout">(Log Out)</Link>
+								<Link to="/">My Blogs</Link>
 							</li>
-							<li className="usernameNav">| ✦{localStorage.getItem('username')}</li>
+							<li>
+								<Link to="/new-blog">New Blog</Link>
+							</li>
+						</div>
+						<div className="loginLogout">
+							<li className="usernameNav"> ✦{localStorage.getItem('username')}</li>
+							<li>
+								<Link to="/logout">| Log Out</Link>
+							</li>
 						</div>
 					</ul>
 				</div>

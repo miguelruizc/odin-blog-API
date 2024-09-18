@@ -82,9 +82,10 @@ function Register({ setIsAuthenticated }) {
 				<button type="submit">Register</button>
 				<div className="errors"></div>
 			</form>
-			<p>
-				Have an account?<Link to="/login">Log In</Link>
-			</p>
+			<div className="donthaveanaccount">
+				<p>Have an account?</p>
+				<Link to="/login">Log In</Link>
+			</div>
 		</div>
 	);
 }

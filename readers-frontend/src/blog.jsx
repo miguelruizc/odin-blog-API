@@ -86,8 +86,8 @@ function Blog() {
 		return blog.comments.map((comment, index) => (
 			<div key={index} className="commentCard">
 				<p>{comment.body}</p>
-				<p>
-					{comment.author}[{formatDate(comment.createdAt)}]
+				<p className="signature">
+					-by <strong>{comment.author}</strong> on {formatDate(blog.createdAt)}
 				</p>
 			</div>
 		));
@@ -96,14 +96,16 @@ function Blog() {
 	// Blog details
 	return (
 		<div className="main blog-details">
-			<h1>Blog Details</h1>
+			<h2>Blog Details</h2>
 			{loading && <p>Loading...</p>}
 			{error && <p>Error: {error}</p>}
 			{!loading && !error && (
 				<>
-					<h2>{blog.title}</h2>
+					<h3>{blog.title}</h3>
 					<p>{blog.body}</p>
-					<p>Author: {blog.author.username}</p>
+					<p className="signature">
+						-by <strong>{blog.author.username}</strong> on {formatDate(blog.createdAt)}
+					</p>
 					<div className="comments">
 						<h3>Comments: </h3>
 						{blog.comments.length > 0 ? commentCards() : <p>No comments...</p>}

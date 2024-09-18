@@ -81,9 +81,10 @@ function Login({ setIsAuthenticated }) {
 				<button type="submit">Log In</button>
 				<div className="errors"></div>
 			</form>
-			<p>
-				Don&apos;t have an account?<Link to="/register">Register</Link>
-			</p>
+			<div className="donthaveanaccount">
+				<p>Don&apos;t have an account?</p>
+				<Link to="/register">Register</Link>
+			</div>
 		</div>
 	);
 }

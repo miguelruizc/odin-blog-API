@@ -70,8 +70,9 @@ function MyBlogs() {
 				<div className="blogCard" key={blog.id}>
 					<h3>{blog.title}</h3>
 					<p>{blog.body}</p>
-					<p>Author: {blog.author.username}</p>
-					<p>{formatDate(blog.createdAt)}</p>
+					<p className="signature">
+						-by <strong>{blog.author.username}</strong> on {formatDate(blog.createdAt)}
+					</p>
 					<Link to={`/edit-blog/${blog.id}`}>Edit</Link>
 					<a href="" onClick={() => handleDelete(blog.id, event)}>
 						Delete

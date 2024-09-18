@@ -13,10 +13,10 @@ function Nav({ isAuthenticated }) {
 							<Link to="/">All blogs</Link>
 						</li>
 						<div className="loginLogout">
+							<li className="usernameNav">✦{localStorage.getItem('username')}</li>
 							<li>
-								<Link to="/logout">(Log Out)</Link>
+								<Link to="/logout">| Log Out</Link>
 							</li>
-							<li className="usernameNav"> | ✦{localStorage.getItem('username')}</li>
 						</div>
 					</ul>
 				</div>
