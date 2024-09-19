@@ -2,6 +2,7 @@ import express, { json, urlencoded } from 'express';
 import blogsRouter from './routes/blogs.js';
 import registerRouter from './routes/register.js';
 import loginRouter from './routes/login.js';
+import ascendRouter from './routes/ascend.js';
 import cors from 'cors';
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(cors(corsOptions));
 app.use('/blogs', blogsRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/ascend', ascendRouter);
 
 // Not found (catch-all route)
 app.use('*', (req, res) => {
