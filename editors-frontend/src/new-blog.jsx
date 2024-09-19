@@ -112,9 +112,9 @@ function NewBlog({ setIsAuthenticated }) {
 			{!isAuthor && (
 				<>
 					<button className="ascendButton" onClick={ascensionHandler}>
-						<img className="fireIcon" src="/src/assets/fire.gif" alt="fire gif" />
+						<img className="fireIcon" src="/fire.gif" alt="fire gif" />
 						BECOME AN AUTHOR
-						<img className="fireIcon" src="/src/assets/fire.gif" alt="fire gif" />
+						<img className="fireIcon" src="/fire.gif" alt="fire gif" />
 					</button>
 				</>
 			)}
