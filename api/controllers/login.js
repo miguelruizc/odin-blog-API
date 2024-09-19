@@ -37,6 +37,8 @@ export const POST_login = async (req, res, next) => {
 		return res.json({
 			message: `User ${user.username} authenticated`,
 			JWT: token,
+			username: user.username,
+			isAuthor: user.isAuthor,
 		});
 	} catch (error) {
 		console.error(chalk.red('Error handling POST /login request: ', error));

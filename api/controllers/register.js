@@ -47,6 +47,8 @@ export const POST_register = async (req, res, next) => {
 		return res.json({
 			message: `User registered: ${username}`,
 			JWT: token,
+			username: user.username,
+			isAuthor: user.isAuthor,
 		});
 	} catch (error) {
 		console.error(chalk.red('Error handling POST /register request: ', error));
