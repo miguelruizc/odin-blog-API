@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
+import { generateJWT } from '../misc/jwt.js';
 
 export const POST_ascend = async (req, res, next) => {
 	// Find user in database and set isAuthor to true
@@ -18,7 +19,9 @@ export const POST_ascend = async (req, res, next) => {
 			chalk.magenta(user.isAuthor)
 		);
 
-		res.json({ message: `User ascended: ${user.username}` });
+		const jwt = generateJWT(user);
+
+		res.json({ message: `User ascended: ${user.username}`, jwt });
 	} catch (error) {
 		console.error(chalk.red('Error handling POST /ascend request: ', error));
 		next(error);
