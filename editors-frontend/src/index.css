@@ -260,3 +260,18 @@ textarea {
 .fireIcon {
 	width: 1rem;
 }
+
+@media (max-width: 300px) {
+	.blogsNav {
+		flex-direction: column;
+		gap: 0px;
+	}
+
+	footer a {
+		font-size: 0.9rem;
+		padding: 0;
+		padding-left: 8px;
+		padding-top: 4px;
+		padding-right: 4px;
+	}
+}

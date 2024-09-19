@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-function NewBlog() {
+function NewBlog({ setIsAuthenticated }) {
 	const navigate = useNavigate();
 
 	// User not authenticated
@@ -34,7 +34,6 @@ function NewBlog() {
 		})
 			.then((response) => {
 				if (!response.ok) {
-					// Show errors in errors div
 					return response.json().then((json) => alert(JSON.stringify(json)));
 				}
 				navigate('/');
@@ -42,13 +41,40 @@ function NewBlog() {
 			.catch((error) => {
 				console.error(error);
 				alert(error);
-				// Show errors in errors div
 			});
 	};
 
 	const ascensionHandler = () => {
 		event.preventDefault();
-		alert('ASCENSION CLICKED');
+
+		// Send ascend request to API
+		fetch('https://blogapi.miguelruizc.xyz/ascend', {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((response) => {
+				if (!response.ok) {
+					return response.json().then((json) => alert(JSON.stringify(json)));
+				}
+
+				// Handle new JWT and user info
+				const jsonResponse = response.json();
+				localStorage.setItem('jwt', jsonResponse.JWT);
+				localStorage.setItem('username', jsonResponse.username);
+				localStorage.setItem('isAuthor', true);
+				setIsAuthenticated(true);
+
+				// refresh
+				navigate('/new-blog');
+				alert('(^▽^)ノ < You are now an author in this blog!');
+			})
+			.catch((error) => {
+				console.error(error);
+				alert(error);
+			});
 	};
 
 	return (
@@ -85,7 +111,7 @@ function NewBlog() {
 				<>
 					<button className="ascendButton" onClick={ascensionHandler}>
 						<img className="fireIcon" src="/src/assets/fire.gif" alt="fire gif" />
-						ASCEND
+						BECOME AN AUTHOR
 						<img className="fireIcon" src="/src/assets/fire.gif" alt="fire gif" />
 					</button>
 				</>
