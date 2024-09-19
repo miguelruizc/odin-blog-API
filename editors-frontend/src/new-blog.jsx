@@ -46,6 +46,11 @@ function NewBlog() {
 			});
 	};
 
+	const ascensionHandler = () => {
+		event.preventDefault();
+		alert('ASCENSION CLICKED');
+	};
+
 	return (
 		<div className="main new-blog">
 			<h1>New Blog</h1>
@@ -75,6 +80,16 @@ function NewBlog() {
 				</button>
 			</form>
 			<div className="errors"></div>
+
+			{!isAuthor && (
+				<>
+					<button className="ascendButton" onClick={ascensionHandler}>
+						<img className="fireIcon" src="/src/assets/fire.gif" alt="fire gif" />
+						ASCEND
+						<img className="fireIcon" src="/src/assets/fire.gif" alt="fire gif" />
+					</button>
+				</>
+			)}
 		</div>
 	);
 }

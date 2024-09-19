@@ -233,3 +233,30 @@ textarea {
 .blogCard p {
 	white-space: pre-line;
 }
+
+.ascendButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: fit-content;
+	align-self: center;
+	padding: 0px;
+	border: 1px solid rgb(201, 201, 201);
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.ascendButton:hover {
+	background-color: rgb(255, 50, 50);
+	color: white;
+	font-weight: bold;
+	border-color: yellow;
+}
+
+.ascendButton:active {
+	background-color: white;
+}
+
+.fireIcon {
+	width: 1rem;
+}
