@@ -6,6 +6,7 @@ function NewBlog() {
 
 	// User not authenticated
 	if (!localStorage.getItem('jwt')) return <Navigate to="/login" />;
+	const isAuthor = JSON.parse(localStorage.getItem('isAuthor'));
 
 	const submitHandler = (event) => {
 		event.preventDefault();
@@ -51,13 +52,27 @@ function NewBlog() {
 			<form className="newBlogForm" onSubmit={submitHandler}>
 				<div>
 					<label htmlFor="title">Title</label>
-					<input type="text" name="title" minLength="3" maxLength="50" required />
+					<input
+						type="text"
+						name="title"
+						minLength="3"
+						maxLength="50"
+						required
+						disabled={isAuthor ? false : true}
+					/>
 				</div>
 				<div>
 					<label htmlFor="body">Body</label>
-					<textarea name="body" minLength="15" required></textarea>
+					<textarea
+						name="body"
+						minLength="15"
+						required
+						disabled={isAuthor ? false : true}
+					></textarea>
 				</div>
-				<button type="submit">Submit</button>
+				<button type="submit" disabled={isAuthor ? false : true}>
+					{isAuthor ? 'Submit' : 'Become author to create blogs'}
+				</button>
 			</form>
 			<div className="errors"></div>
 		</div>

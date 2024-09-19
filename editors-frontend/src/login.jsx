@@ -45,7 +45,7 @@ function Login({ setIsAuthenticated }) {
 			// Extract JWT + username and store locally
 			localStorage.setItem('jwt', jsonResponse.JWT);
 			localStorage.setItem('username', username);
-			localStorage.setItem('isAuthor', true);
+			localStorage.setItem('isAuthor', jsonResponse.isAuthor);
 			setIsAuthenticated(true);
 
 			// Redirect to /home
