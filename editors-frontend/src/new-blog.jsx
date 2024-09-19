@@ -44,7 +44,7 @@ function NewBlog({ setIsAuthenticated }) {
 			});
 	};
 
-	const ascensionHandler = () => {
+	const ascensionHandler = (event) => {
 		event.preventDefault();
 
 		// Send ascend request to API
@@ -61,15 +61,17 @@ function NewBlog({ setIsAuthenticated }) {
 				}
 
 				// Handle new JWT and user info
-				const jsonResponse = response.json();
-				localStorage.setItem('jwt', jsonResponse.JWT);
-				localStorage.setItem('username', jsonResponse.username);
-				localStorage.setItem('isAuthor', true);
-				setIsAuthenticated(true);
+				response.json().then((jsonResponse) => {
+					console.log(jsonResponse);
+					localStorage.setItem('jwt', jsonResponse.jwt);
+					localStorage.setItem('username', jsonResponse.username);
+					localStorage.setItem('isAuthor', true);
+					setIsAuthenticated(true);
 
-				// refresh
-				navigate('/new-blog');
-				alert('(^▽^)ノ < You are now an author in this blog!');
+					// refresh
+					navigate('/new-blog');
+					alert('(^▽^)ノ < You are now an author in this blog!');
+				});
 			})
 			.catch((error) => {
 				console.error(error);

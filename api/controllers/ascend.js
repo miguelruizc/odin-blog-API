@@ -21,7 +21,11 @@ export const POST_ascend = async (req, res, next) => {
 
 		const jwt = generateJWT(user);
 
-		res.json({ message: `User ascended: ${user.username}`, jwt });
+		res.json({
+			message: `User ascended: ${user.username}`,
+			jwt,
+			username: user.username,
+		});
 	} catch (error) {
 		console.error(chalk.red('Error handling POST /ascend request: ', error));
 		next(error);
